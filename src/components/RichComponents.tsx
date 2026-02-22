@@ -2,228 +2,247 @@
 
 import { useState } from "react";
 
-function IncludedBadge() {
-  return (
-    <span className="rounded bg-green-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-green-600">
-      標準搭載
-    </span>
-  );
+interface Feature {
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+  color: string;
+  bgColor: string;
+  details: string[];
 }
 
-function OptionBadge() {
-  return (
-    <span className="rounded bg-blue-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-blue-600">
-      オプション
-    </span>
-  );
-}
-
-function DeliveryDemo() {
-  const days = ["日", "月", "火", "水", "木", "金", "土"];
-  const dates = [
-    [26, 27, 28, 29, 30, 31, 1],
-    [2, 3, 4, 5, 6, 7, 8],
-    [9, 10, 11, 12, 13, 14, 15],
-    [16, 17, 18, 19, 20, 21, 22],
-    [23, 24, 25, 26, 27, 28, 29],
-    [30, 1, 2, 3, 4, 5, 6],
-  ];
-
-  return (
-    <div className="flex flex-col rounded-xl border border-ant-border-dark bg-ant-bg-card">
-      <div className="flex gap-1 border-b border-ant-border-dark p-3">
-        {["最短お届け", "指定日配送", "店頭受取"].map((f) => (
-          <button
-            key={f}
-            className="rounded px-2 py-1 text-[10px] text-ant-text-tertiary hover:bg-ant-bg-card-hover hover:text-ant-text-secondary"
-          >
-            {f}
-          </button>
-        ))}
-      </div>
-      <div className="p-4">
-        <div className="mb-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-ant-text-primary">3月</span>
-            <span className="text-xs text-ant-text-tertiary">2026</span>
-          </div>
-          <div className="flex gap-1.5">
-            <button className="flex h-5 w-5 items-center justify-center rounded text-[10px] text-ant-text-tertiary hover:bg-ant-bg-card-hover hover:text-ant-text-primary">
-              &lsaquo;
-            </button>
-            <button className="flex h-5 w-5 items-center justify-center rounded text-[10px] text-ant-text-tertiary hover:bg-ant-bg-card-hover hover:text-ant-text-primary">
-              &rsaquo;
-            </button>
-          </div>
-        </div>
-        <div className="grid grid-cols-7 gap-y-0.5">
-          {days.map((day) => (
-            <div key={day} className="flex h-7 items-center justify-center text-[10px] font-medium text-ant-text-tertiary">
-              {day}
-            </div>
-          ))}
-          {dates.flat().map((date, i) => {
-            const isOutside = (i < 5 && date > 20) || (i > 34 && date < 10);
-            const isSelected = date === 10 && !isOutside;
-            const isToday = date === 5 && !isOutside && i > 4 && i < 12;
-            return (
-              <div
-                key={i}
-                className={`flex h-7 w-full items-center justify-center rounded text-[10px] transition-colors ${
-                  isSelected
-                    ? "bg-ant-primary font-medium text-white"
-                    : isToday
-                      ? "border border-ant-primary text-ant-primary"
-                      : isOutside
-                        ? "text-ant-text-tertiary/30"
-                        : "text-ant-text-secondary hover:bg-ant-bg-card-hover"
-                }`}
-              >
-                {date}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SetupGuideDemo() {
-  return (
-    <div className="flex flex-col gap-3 rounded-xl border border-ant-border-dark bg-ant-bg-card p-5">
-      <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50">
-          <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-            <rect x="3" y="3" width="18" height="18" rx="3" stroke="#1677ff" strokeWidth="1.5" />
-            <path d="M8 12h8M12 8v8" stroke="#1677ff" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </div>
-        <span className="text-sm font-semibold text-ant-text-primary">初期セットアップ</span>
-      </div>
-      <p className="text-xs leading-relaxed text-ant-text-tertiary">
-        お届け後の接続方法をステップバイステップでご案内します。
-      </p>
-      <div className="flex items-center justify-end gap-2 pt-1">
-        <button className="rounded-md border border-ant-border-dark px-3 py-1 text-[11px] text-ant-text-secondary transition-colors hover:border-ant-primary/40">
-          戻る
-        </button>
-        <button className="rounded-md bg-ant-primary px-3 py-1 text-[11px] text-white transition-colors hover:bg-ant-primary-hover">
-          次へ
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function RemoteSupportDemo() {
-  return (
-    <div className="relative flex min-h-[180px] flex-col rounded-xl border border-ant-border-dark bg-ant-bg-card">
-      <div className="flex-1" />
-      <div className="absolute right-4 bottom-4 flex flex-col items-center gap-2">
-        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-ant-primary shadow-lg shadow-blue-500/20 transition-transform hover:scale-110">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="white" strokeWidth="2" fill="none" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SpecComparisonDemo() {
-  return (
-    <div className="flex min-h-[180px] overflow-hidden rounded-xl border border-ant-border-dark bg-ant-bg-card">
-      <div className="flex flex-1 flex-col items-center justify-center border-r border-ant-border-dark p-4">
-        <span className="mb-1 text-xs text-ant-text-tertiary">M4</span>
-        <span className="text-sm font-medium text-ant-text-primary">スタンダード</span>
-      </div>
-      <div className="flex w-2 cursor-col-resize items-center justify-center bg-transparent">
-        <div className="h-8 w-0.5 rounded-full bg-ant-border-dark" />
-      </div>
-      <div className="flex flex-1 flex-col items-center justify-center p-4">
-        <span className="mb-1 text-xs text-ant-text-tertiary">M4 Pro</span>
-        <span className="text-sm font-medium text-ant-text-primary">プロ</span>
-      </div>
-    </div>
-  );
-}
-
-function AccessoriesDemo() {
-  const items = [
-    { name: "キーボード", h: 60 },
-    { name: "マウス", h: 80 },
-    { name: "ディスプレイ", h: 100 },
-    { name: "ハブ", h: 50 },
-    { name: "ケーブル", h: 70 },
-    { name: "スタンド", h: 55 },
-    { name: "ケース", h: 90 },
-    { name: "メモリ", h: 65 },
-    { name: "SSD", h: 75 },
-  ];
-
-  return (
-    <div className="grid grid-cols-3 gap-2 rounded-xl border border-ant-border-dark bg-ant-bg-card p-4">
-      {items.map((item, i) => (
-        <div
-          key={i}
-          style={{ height: item.h }}
-          className="flex items-center justify-center rounded-lg bg-blue-50 text-[10px] font-medium text-ant-primary/70"
-        >
-          {item.name}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-const tabs = [
-  { name: "お届け日選択", badge: "included" as const },
-  { name: "セットアップガイド", badge: "included" as const },
-  { name: "リモートサポート", badge: "included" as const },
-  { name: "スペック比較", badge: "option" as const },
-  { name: "アクセサリ", badge: "option" as const },
+const features: Feature[] = [
+  {
+    name: "ローカルAI実行",
+    description: "クラウド不要。Mac上でAIモデルをローカル実行。プライバシーを守りながら高速推論。",
+    color: "text-blue-600",
+    bgColor: "bg-blue-50",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <rect x="9" y="9" width="6" height="6" />
+        <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
+      </svg>
+    ),
+    details: ["Apple Silicon最適化", "GPU完全活用", "オフライン動作"],
+  },
+  {
+    name: "コード生成・補完",
+    description: "AIがコードを自動生成・補完。対話形式で要件を伝えるだけで、高品質なコードを出力。",
+    color: "text-violet-600",
+    bgColor: "bg-violet-50",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+        <line x1="14" y1="4" x2="10" y2="20" />
+      </svg>
+    ),
+    details: ["多言語対応", "コンテキスト理解", "リファクタリング"],
+  },
+  {
+    name: "ドキュメント処理",
+    description: "PDFやテキストファイルを読み込み、要約・翻訳・情報抽出をAIが自動処理。",
+    color: "text-emerald-600",
+    bgColor: "bg-emerald-50",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
+        <polyline points="10 9 9 9 8 9" />
+      </svg>
+    ),
+    details: ["PDF/CSV/JSON対応", "自動要約", "多言語翻訳"],
+  },
+  {
+    name: "マルチモデル対応",
+    description: "LLaMA、Mistral、Gemmaなど主要なオープンソースモデルを切り替えて利用可能。",
+    color: "text-orange-600",
+    bgColor: "bg-orange-50",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    ),
+    details: ["LLaMA 3", "Mistral", "Gemma / Phi"],
+  },
+  {
+    name: "ワークフロー自動化",
+    description: "繰り返しタスクをAIパイプラインで自動化。コマンド一つで複雑な処理を実行。",
+    color: "text-cyan-600",
+    bgColor: "bg-cyan-50",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      </svg>
+    ),
+    details: ["パイプライン構築", "スケジュール実行", "Webhook連携"],
+  },
+  {
+    name: "データ分析",
+    description: "CSVやデータベースのデータを自然言語で分析。グラフ生成やレポート作成もAIにおまかせ。",
+    color: "text-pink-600",
+    bgColor: "bg-pink-50",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10" />
+        <line x1="12" y1="20" x2="12" y2="4" />
+        <line x1="6" y1="20" x2="6" y2="14" />
+        <line x1="2" y1="20" x2="22" y2="20" />
+      </svg>
+    ),
+    details: ["自然言語クエリ", "可視化", "レポート自動生成"],
+  },
 ];
 
+function FeatureCard({
+  feature,
+  isActive,
+  onClick,
+}: {
+  feature: Feature;
+  isActive: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`group flex items-start gap-4 rounded-2xl border p-5 text-left transition-all ${
+        isActive
+          ? "border-ant-primary/25 bg-white shadow-lg shadow-blue-500/8"
+          : "border-ant-border-dark bg-white hover:border-ant-primary/15 hover:shadow-md"
+      }`}
+    >
+      <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${feature.bgColor} ${feature.color} transition-transform group-hover:scale-105`}>
+        {feature.icon}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <h4 className="text-[14px] font-bold text-ant-text-primary">{feature.name}</h4>
+          {isActive && (
+            <span className="h-1.5 w-1.5 rounded-full bg-ant-primary" />
+          )}
+        </div>
+        <p className="mt-1 text-[12px] leading-relaxed text-ant-text-tertiary">
+          {feature.description}
+        </p>
+      </div>
+    </button>
+  );
+}
+
+function DetailPanel({ feature }: { feature: Feature }) {
+  return (
+    <div className="flex flex-col overflow-hidden rounded-2xl border border-ant-border-dark bg-white shadow-sm">
+      {/* Header */}
+      <div className={`${feature.bgColor} p-6`}>
+        <div className="flex items-center gap-3">
+          <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 ${feature.color}`}>
+            {feature.icon}
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-ant-text-primary">{feature.name}</h3>
+            <p className="text-xs text-ant-text-secondary">{feature.description}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-1 flex-col gap-5 p-6">
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2">
+          {feature.details.map((detail) => (
+            <span
+              key={detail}
+              className={`rounded-lg ${feature.bgColor} px-3 py-1.5 text-xs font-semibold ${feature.color}`}
+            >
+              {detail}
+            </span>
+          ))}
+        </div>
+
+        {/* Demo terminal */}
+        <div className="overflow-hidden rounded-xl border border-ant-border-dark bg-slate-900">
+          <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-2.5">
+            <div className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+            <div className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
+            <div className="h-2.5 w-2.5 rounded-full bg-green-400/80" />
+            <span className="ml-2 text-[10px] text-white/40">Terminal - OPENCLAW</span>
+          </div>
+          <div className="p-4 font-mono text-xs leading-relaxed">
+            <div className="text-green-400">$ openclaw run</div>
+            <div className="mt-1 text-white/50">
+              Loading model... <span className="text-green-400">done</span>
+            </div>
+            <div className="text-white/50">
+              {feature.name} ready <span className="text-cyan-400">[{feature.details[0]}]</span>
+            </div>
+            <div className="mt-2 flex items-center text-white/70">
+              <span className="text-blue-400">&gt;</span>
+              <span className="ml-1.5 inline-block h-3.5 w-[2px] animate-pulse bg-white/60" />
+            </div>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-3">
+          <div className="rounded-xl bg-ant-bg-card p-3 text-center">
+            <p className="text-lg font-extrabold text-ant-text-primary">10x</p>
+            <p className="text-[10px] text-ant-text-tertiary">高速化</p>
+          </div>
+          <div className="rounded-xl bg-ant-bg-card p-3 text-center">
+            <p className="text-lg font-extrabold text-ant-text-primary">100%</p>
+            <p className="text-[10px] text-ant-text-tertiary">ローカル</p>
+          </div>
+          <div className="rounded-xl bg-ant-bg-card p-3 text-center">
+            <p className="text-lg font-extrabold text-ant-text-primary">0円</p>
+            <p className="text-[10px] text-ant-text-tertiary">API費用</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function RichComponents() {
-  const [activeTab] = useState("お届け日選択");
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="mx-auto max-w-[1200px] px-6 py-16">
-      <div className="mb-10 text-center">
-        <h2 className="mb-3 text-3xl font-bold text-ant-text-primary md:text-4xl">
-          充実のサービス内容
+    <section className="section-divider mx-auto max-w-[1200px] px-6 py-20">
+      <div className="mb-12 text-center">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200/60 bg-blue-50/80 px-4 py-1.5">
+          <span className="text-xs font-semibold text-blue-700">OPENCLAWでできること</span>
+        </div>
+        <h2 className="mb-3 text-3xl font-extrabold tracking-tight text-ant-text-primary md:text-4xl">
+          OPENCLAWの主な機能
         </h2>
-        <p className="text-sm text-ant-text-tertiary">
-          購入から運用まで、安心のサポート体制をご用意しています
+        <p className="mx-auto max-w-lg text-sm leading-relaxed text-ant-text-tertiary">
+          ローカル環境でAIの力を最大限に活用。コード生成からデータ分析まで、
+          幅広いタスクをMac mini上で完結できます。
         </p>
       </div>
 
-      <div className="mb-6 flex flex-wrap items-center gap-6 border-b border-ant-border-dark pb-4">
-        {tabs.map((tab) => (
-          <div
-            key={tab.name}
-            className={`flex cursor-pointer items-center gap-1.5 pb-1 text-sm font-medium transition-colors ${
-              activeTab === tab.name
-                ? "border-b-2 border-ant-primary text-ant-text-primary"
-                : "text-ant-text-secondary hover:text-ant-text-primary"
-            }`}
-          >
-            {tab.name}
-            {tab.badge === "included" ? <IncludedBadge /> : <OptionBadge />}
-          </div>
-        ))}
-      </div>
+      <div className="grid gap-6 lg:grid-cols-[1fr_400px]">
+        {/* Left: feature cards grid */}
+        <div className="grid gap-3 sm:grid-cols-2">
+          {features.map((feature, i) => (
+            <FeatureCard
+              key={feature.name}
+              feature={feature}
+              isActive={activeIndex === i}
+              onClick={() => setActiveIndex(i)}
+            />
+          ))}
+        </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <DeliveryDemo />
-        <SetupGuideDemo />
-        <RemoteSupportDemo />
-        <SpecComparisonDemo />
-      </div>
-
-      <div className="mt-4">
-        <AccessoriesDemo />
+        {/* Right: detail panel */}
+        <div className="lg:sticky lg:top-20 lg:self-start">
+          <DetailPanel feature={features[activeIndex]} />
+        </div>
       </div>
     </section>
   );
