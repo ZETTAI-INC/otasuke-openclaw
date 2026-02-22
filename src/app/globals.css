@@ -1,26 +1,62 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "AlibabaSans";
+  src: url("../assets/alicdn-font.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ant-primary: #1677ff;
+  --ant-primary-hover: #4096ff;
+  --ant-primary-active: #0958d9;
+  --ant-bg-dark: #ffffff;
+  --ant-bg-card: #f7f8fa;
+  --ant-bg-card-hover: #f0f2f5;
+  --ant-text-primary: rgba(0, 0, 0, 0.88);
+  --ant-text-secondary: rgba(0, 0, 0, 0.65);
+  --ant-text-tertiary: rgba(0, 0, 0, 0.45);
+  --ant-border-dark: rgba(0, 0, 0, 0.08);
+  --ant-success: #52c41a;
+  --ant-error: #ff4d4f;
+  --ant-warning: #faad14;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ant-primary: var(--ant-primary);
+  --color-ant-primary-hover: var(--ant-primary-hover);
+  --color-ant-bg-dark: var(--ant-bg-dark);
+  --color-ant-bg-card: var(--ant-bg-card);
+  --color-ant-bg-card-hover: var(--ant-bg-card-hover);
+  --color-ant-text-primary: var(--ant-text-primary);
+  --color-ant-text-secondary: var(--ant-text-secondary);
+  --color-ant-text-tertiary: var(--ant-text-tertiary);
+  --color-ant-border-dark: var(--ant-border-dark);
+  --color-ant-success: var(--ant-success);
+  --color-ant-error: var(--ant-error);
+  --color-ant-warning: var(--ant-warning);
+  --font-alibaba: "AlibabaSans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ant-bg-dark);
+  color: var(--ant-text-primary);
+  font-family: var(--font-alibaba);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
 }
