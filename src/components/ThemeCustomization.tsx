@@ -1,57 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { Card, Tag, Button, Space, Row, Col, Flex } from "antd";
+import { CheckCircleFilled, ShoppingCartOutlined, FileSearchOutlined } from "@ant-design/icons";
 
 const configOptions = [
-  {
-    name: "スタンダード構成",
-    desc: "AI開発入門に最適な基本構成",
-    icon: "💻",
-  },
-  {
-    name: "デベロッパー構成",
-    desc: "本格的な開発環境をフル装備",
-    icon: "⚡",
-  },
-  {
-    name: "ハイパフォーマンス構成",
-    desc: "大規模モデルの実行に対応",
-    icon: "🚀",
-  },
-  {
-    name: "データサイエンス構成",
-    desc: "分析・ML向けツールを網羅",
-    icon: "📊",
-  },
-  {
-    name: "クリエイター構成",
-    desc: "映像・デザイン制作に最適化",
-    icon: "🎨",
-  },
-  {
-    name: "エンタープライズ構成",
-    desc: "法人向けセキュリティ・管理機能",
-    icon: "🏢",
-  },
-  {
-    name: "教育・研究機関向け",
-    desc: "アカデミック用途に特化",
-    icon: "🎓",
-  },
-  {
-    name: "OPENCLAWでできること",
-    desc: "OPENCLAWの全機能をご紹介",
-    icon: "🔧",
-  },
+  { name: "スタンダード構成", desc: "AI開発入門に最適な基本構成", icon: "💻" },
+  { name: "デベロッパー構成", desc: "本格的な開発環境をフル装備", icon: "⚡" },
+  { name: "ハイパフォーマンス構成", desc: "大規模モデルの実行に対応", icon: "🚀" },
+  { name: "データサイエンス構成", desc: "分析・ML向けツールを網羅", icon: "📊" },
+  { name: "クリエイター構成", desc: "映像・デザイン制作に最適化", icon: "🎨" },
+  { name: "エンタープライズ構成", desc: "法人向けセキュリティ・管理機能", icon: "🏢" },
+  { name: "教育・研究機関向け", desc: "アカデミック用途に特化", icon: "🎓" },
+  { name: "OPENCLAWでできること", desc: "OPENCLAWの全機能をご紹介", icon: "🔧" },
 ];
-
-function CheckIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  );
-}
 
 const specItems = [
   { label: "Mac mini", value: "M4 Pro" },
@@ -61,79 +23,99 @@ const specItems = [
 ];
 
 const softwareItems = [
-  { name: "OPENCLAW", color: "bg-blue-500" },
-  { name: "Python 3.12", color: "bg-green-500" },
-  { name: "Node.js", color: "bg-emerald-500" },
-  { name: "Docker", color: "bg-sky-500" },
-  { name: "Git", color: "bg-orange-500" },
-  { name: "VS Code", color: "bg-violet-500" },
-];
+  { name: "OPENCLAW", color: "blue" },
+  { name: "Python 3.12", color: "green" },
+  { name: "Node.js", color: "cyan" },
+  { name: "Docker", color: "geekblue" },
+  { name: "Git", color: "orange" },
+  { name: "VS Code", color: "purple" },
+] as const;
 
 function ConfigPreview({ configName }: { configName: string }) {
   return (
-    <div className="flex flex-col gap-5 rounded-2xl border border-ant-border-dark bg-white p-6 shadow-sm">
+    <Card className="!rounded-2xl !shadow-sm" styles={{ body: { padding: 24 } }}>
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <Flex justify="space-between" align="start" className="mb-5">
         <div>
-          <h3 className="text-lg font-bold text-ant-text-primary">{configName}</h3>
+          <h3 className="text-lg font-bold text-ant-text-primary">
+            {configName}
+          </h3>
           <p className="mt-1 text-xs text-ant-text-tertiary">
             Mac miniにOPENCLAW環境を構築済み。最適なパフォーマンスでお届けします。
           </p>
         </div>
-        <span className="rounded-full bg-green-500/10 px-3 py-1 text-[11px] font-semibold text-green-600">
+        <Tag color="success" className="!rounded-full !text-[11px] !font-semibold">
           在庫あり
-        </span>
-      </div>
+        </Tag>
+      </Flex>
 
       {/* Spec grid */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <Row gutter={[12, 12]} className="mb-5">
         {specItems.map((item) => (
-          <div key={item.label} className="rounded-xl bg-ant-bg-card p-3">
-            <p className="text-[10px] font-medium text-ant-text-tertiary">{item.label}</p>
-            <p className="mt-0.5 text-sm font-bold text-ant-text-primary">{item.value}</p>
-          </div>
+          <Col xs={12} sm={6} key={item.label}>
+            <div className="rounded-xl bg-ant-bg-card p-3">
+              <p className="text-[10px] font-medium text-ant-text-tertiary">
+                {item.label}
+              </p>
+              <p className="mt-0.5 text-sm font-bold text-ant-text-primary">
+                {item.value}
+              </p>
+            </div>
+          </Col>
         ))}
-      </div>
+      </Row>
 
       {/* Software list */}
-      <div>
-        <p className="mb-3 text-xs font-semibold text-ant-text-secondary">プリインストール済み</p>
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+      <div className="mb-5">
+        <p className="mb-3 text-xs font-semibold text-ant-text-secondary">
+          プリインストール済み
+        </p>
+        <Flex wrap gap={8}>
           {softwareItems.map((item) => (
-            <div key={item.name} className="flex items-center gap-2 rounded-lg bg-ant-bg-card px-3 py-2">
-              <div className={`h-2 w-2 rounded-full ${item.color}`} />
-              <span className="text-xs font-medium text-ant-text-secondary">{item.name}</span>
-            </div>
+            <Tag
+              key={item.name}
+              color={item.color}
+              className="!rounded-lg !px-3 !py-1 !text-xs"
+            >
+              {item.name}
+            </Tag>
           ))}
-        </div>
+        </Flex>
       </div>
 
       {/* Status */}
-      <div className="flex items-center gap-4 rounded-xl bg-blue-50/80 px-4 py-3">
-        <div className="flex items-center gap-1.5 text-green-600">
-          <CheckIcon />
+      <div className="mb-5 flex items-center gap-4 rounded-xl bg-blue-50/80 px-4 py-3">
+        <Space size={6} className="text-green-600">
+          <CheckCircleFilled />
           <span className="text-xs font-medium">OS設定済み</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-blue-600">
-          <CheckIcon />
+        </Space>
+        <Space size={6} className="text-blue-600">
+          <CheckCircleFilled />
           <span className="text-xs font-medium">OPENCLAW導入済み</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-green-600">
-          <CheckIcon />
+        </Space>
+        <Space size={6} className="text-green-600">
+          <CheckCircleFilled />
           <span className="text-xs font-medium">動作検証済み</span>
-        </div>
+        </Space>
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-3">
-        <button className="rounded-xl bg-ant-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-blue-500/20 transition-all hover:bg-ant-primary-hover hover:shadow-md hover:shadow-blue-500/25">
+      <Space size={12}>
+        <Button
+          type="primary"
+          icon={<ShoppingCartOutlined />}
+          className="!rounded-xl !font-semibold !shadow-sm !shadow-blue-500/20"
+        >
           購入する
-        </button>
-        <button className="rounded-xl border border-ant-border-dark px-5 py-2.5 text-sm font-medium text-ant-text-secondary transition-colors hover:border-ant-primary/30 hover:text-ant-primary">
+        </Button>
+        <Button
+          icon={<FileSearchOutlined />}
+          className="!rounded-xl !font-medium"
+        >
           仕様を見る
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Space>
+    </Card>
   );
 }
 
@@ -143,9 +125,9 @@ export default function ThemeCustomization() {
   return (
     <section className="section-divider mx-auto max-w-[1200px] px-6 py-20">
       <div className="mb-12 text-center">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200/60 bg-blue-50/80 px-4 py-1.5">
-          <span className="text-xs font-semibold text-blue-700">8つのプラン</span>
-        </div>
+        <Tag color="blue" className="!mb-4 !rounded-full !text-xs !font-semibold">
+          8つのプラン
+        </Tag>
         <h2 className="mb-3 text-3xl font-extrabold tracking-tight text-ant-text-primary md:text-4xl">
           選べる構成プラン
         </h2>
@@ -168,13 +150,19 @@ export default function ThemeCustomization() {
               }`}
             >
               <span className="text-lg">{config.icon}</span>
-              <div className="flex-1 min-w-0">
-                <p className={`text-[13px] font-semibold truncate ${
-                  activeConfig === config.name ? "text-ant-primary" : "text-ant-text-primary"
-                }`}>
+              <div className="min-w-0 flex-1">
+                <p
+                  className={`truncate text-[13px] font-semibold ${
+                    activeConfig === config.name
+                      ? "text-ant-primary"
+                      : "text-ant-text-primary"
+                  }`}
+                >
                   {config.name}
                 </p>
-                <p className="text-[11px] text-ant-text-tertiary truncate">{config.desc}</p>
+                <p className="truncate text-[11px] text-ant-text-tertiary">
+                  {config.desc}
+                </p>
               </div>
               {activeConfig === config.name && (
                 <div className="h-6 w-1 shrink-0 rounded-full bg-ant-primary" />
